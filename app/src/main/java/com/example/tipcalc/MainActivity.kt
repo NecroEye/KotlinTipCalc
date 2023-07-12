@@ -1,8 +1,12 @@
 package com.example.tipcalc
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.example.tipcalc.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
@@ -17,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        binding.Amount.setOnKeyListener{view, key, _ -> handleKeyEvent(view,key) }
+
         binding.CalculateButton.setOnClickListener {
 
             displayTip()
@@ -29,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         val cost: Double
 
-        if(binding.Amount.text.isNotEmpty()){
+        if(binding.Amount.text!!.isNotEmpty()){
 
             val stringField : String = binding.Amount.text.toString()
              cost = stringField.toDouble()
@@ -58,11 +64,24 @@ class MainActivity : AppCompatActivity() {
         else{
             Snackbar.make(binding.CalculateButton, "You must type cost amount.", Snackbar.LENGTH_SHORT).show()
         }
-
-
-
-
-
     }
+
+
+
+    private fun handleKeyEvent(view: View, keyCode: Int) : Boolean{
+
+
+        if(keyCode == KeyEvent.KEYCODE_ENTER){
+
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken,0)
+
+            return true
+
+        }
+
+        return false
+    }
+
 
 }

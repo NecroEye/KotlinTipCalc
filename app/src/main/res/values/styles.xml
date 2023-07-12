@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ThemeOverlay.Material3.TextInputEditText.OutlinedBox." parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+
+        
+    </style>
+</resources>
